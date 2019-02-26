@@ -9,12 +9,21 @@
 
       <div *ngFor="let i of surveylist" class="div-placement row">
         <div>
-        <h3>name: {{ i.surveyName }}</h3>
-        <p>creator name: {{ i.creatorName }}</p>
+        <h3>{{ i.surveyName }}</h3>
+        <p>Created by: {{ i.creatorName }}</p>
       </div>
       </div>
 
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-2">
+
+      <div class="div-placement" style="text-align: center">
+        <h3>Menu</h3>
+        <a routerLink="/newsurvey">
+        <button type="button" class="btn btn-secondary btn-block">create survey</button>
+      </a>
+      </div>
+
+    </div>
   </div>
 </div>

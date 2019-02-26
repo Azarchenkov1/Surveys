@@ -7,13 +7,9 @@ namespace Surveys.Library
 {
     public static class Logger
     {
-        static Logger()
-        {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-        }
-
         public static void HttpRequestOutput(string RequestType, string API)
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Incoming http " + RequestType + " request received: " + API);
         }
     }

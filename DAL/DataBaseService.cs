@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Surveys.Model;
+using Surveys.ReceiverContractLibrary;
 
 namespace Surveys.DAL
 {
@@ -39,6 +40,22 @@ namespace Surveys.DAL
             });
 
             return SurveyList;
+        }
+
+        public static bool SaveSurvey(SurveyContract surveyContract)
+        {
+            Survey survey = new Survey()
+            {
+                CreatorName = surveyContract.CreatorName,
+                CreationDay = Int32.Parse(surveyContract.CreationDay),
+                CreationMonth = Int32.Parse(surveyContract.CreationMonth),
+                CreationYear = Int32.Parse(surveyContract.CreationYear),
+                SurveyName = surveyContract.SurveyName
+            };
+            model.SurveyList.Add(survey);
+            model.SaveChanges();
+
+            return true;
         }
     }
 }

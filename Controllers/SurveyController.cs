@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Surveys.DAL;
 using Surveys.Library;
 using Surveys.Model;
+using Surveys.ReceiverContractLibrary;
 
 namespace Surveys.Controllers
 {
@@ -18,9 +19,18 @@ namespace Surveys.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> surveys()
         {
-            Logger.HttpRequestOutput("GET", "api/Survey/Main");
+            Logger.HttpRequestOutput("GET", "api/survey/surveys");
             List<Survey> SurveyList = DataBaseService.GetSurveyList();
             return Json(SurveyList);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> survey([FromBody]SurveyContract survey)
+        {
+            Logger.HttpRequestOutput("POST", "api/survey/survey");
+            bool result = DataBaseService.SaveSurvey(survey);
+            if(result) { return Json("true"); }
+            else { return Json("false"); }
         }
     }
 }

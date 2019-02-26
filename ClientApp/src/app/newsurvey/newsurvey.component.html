@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-8 div-main">
+        <form class="form-horizontal" #surveyForm="ngForm" (ngSubmit)="submitData(surveyForm)">  
+        <h2 style="text-align: center">create survey</h2>
+        <br/>
+        <div class="row" style="margin-top: 3px;">
+          <div class="col-md-6">
+            <label>name of the creator</label>
+          </div>
+          <div class="col-md-6">
+            <input type="email" id="creatorname" name="creatorname" ngModel class="form-control" required autofocus>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 3px;">
+          <div class="col-md-6">
+            <label>date when survey is created(day/month/year)</label>    
+          </div>
+          <div class="col-md-6">
+            <div class="row"> 
+              <div class="col-4"><input type="email" id="creationday" name="creationday" ngModel class="form-control" required autofocus></div>
+              <div class="col-4"><input type="email" id="creationmonth" name="creationmonth" ngModel class="form-control" required autofocus></div>
+              <div class="col-4"><input type="email" id="creationyear" name="creationyear" ngModel class="form-control" required autofocus></div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 3px;">
+          <div class="col-md-6">
+            <label>name of the survey</label>     
+          </div>
+          <div class="col-md-6">
+            <input type="email" id="surveyname" name="surveyname" ngModel class="form-control" required>            
+          </div>
+        </div>
+        <button class="btn btn-secondary btn-block" style="margin-top: 3px;" type="submit">create survey</button>
+        </form>
+        <div style="height: 20px"></div>  
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>
