@@ -57,5 +57,39 @@ namespace Surveys.DAL
 
             return true;
         }
+
+        public static Survey GetSurvey(int id)
+        {
+            if (id <= model.SurveyList.Count())
+            {
+                var Query = (from query_survey in model.SurveyList
+                             where query_survey.SurveyId == id
+                             select new
+                             {
+                                 query_survey.SurveyId,
+                                 query_survey.SurveyName,
+                                 query_survey.CreatorName,
+                                 query_survey.CreationDay,
+                                 query_survey.CreationMonth,
+                                 query_survey.CreationYear
+                             }).ToList();
+
+                Survey survey = new Survey();
+
+                Query.ForEach(i => {
+
+                    survey.SurveyId = i.SurveyId;
+                    survey.SurveyName = i.SurveyName;
+                    survey.CreatorName = i.CreatorName;
+                    survey.CreationDay = i.CreationDay;
+                    survey.CreationMonth = i.CreationMonth;
+                    survey.CreationYear = i.CreationYear;
+                });
+
+                return survey;
+            } else {
+                return null;
+            }
+        }
     }
 }

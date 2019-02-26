@@ -32,5 +32,14 @@ namespace Surveys.Controllers
             if(result) { return Json("true"); }
             else { return Json("false"); }
         }
+
+        [HttpGet("[action]/{id}")]
+        public async Task<IActionResult> survey(int id)
+        {
+            Logger.HttpRequestOutput("GET", "api/survey/survey");
+            Survey survey = DataBaseService.GetSurvey(id);
+            if (survey != null) { return Json(survey); }
+            else { return Json("false"); }
+        }
     }
 }
