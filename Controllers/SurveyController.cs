@@ -50,5 +50,14 @@ namespace Surveys.Controllers
             if(result) { return Json("true"); }
             else { return Json("false"); }
         }
+
+        [HttpDelete("survey/{id}")]
+        public async Task<IActionResult> deletesurvey(int id)
+        {
+            Logger.HttpRequestOutput("DELETE", "api/survey/survey");
+            bool result = DataBaseService.Delete(id);
+            if (result) { return Json("true"); }
+            else { return Json("false"); }
+        }
     }
 }

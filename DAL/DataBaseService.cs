@@ -113,5 +113,23 @@ namespace Surveys.DAL
                 return null;
             }
         }
+
+        public static bool Delete(int id)
+        {
+            if (id <= model.SurveyList.Count())
+            {
+                var survey = (from query_survey in model.SurveyList
+                              where query_survey.SurveyId == id
+                              select query_survey).FirstOrDefault();
+
+                model.Remove(survey);
+                model.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
