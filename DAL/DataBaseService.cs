@@ -58,6 +58,28 @@ namespace Surveys.DAL
             return true;
         }
 
+        public static bool SaveSurvey(int id, SurveyContract surveyContract)
+        {
+            if (id <= model.SurveyList.Count())
+            {
+                var survey = (from query_survey in model.SurveyList
+                             where query_survey.SurveyId == id
+                             select query_survey).FirstOrDefault();
+
+                survey.CreatorName = surveyContract.CreatorName;
+                survey.CreationDay = Int32.Parse(surveyContract.CreationDay);
+                survey.CreationMonth = Int32.Parse(surveyContract.CreationMonth);
+                survey.CreationYear = Int32.Parse(surveyContract.CreationYear);
+                survey.SurveyName = surveyContract.SurveyName;
+
+                model.SaveChanges();
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         public static Survey GetSurvey(int id)
         {
             if (id <= model.SurveyList.Count())
