@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { NewsurveyComponent } from './newsurvey/newsurvey.component';
+import { SurveypageComponent } from './surveypage/surveypage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    NewsurveyComponent
+    NewsurveyComponent,
+    SurveypageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -22,7 +24,8 @@ import { NewsurveyComponent } from './newsurvey/newsurvey.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'newsurvey', component: NewsurveyComponent }
+      { path: 'newsurvey', component: NewsurveyComponent },
+      { path: 'surveypage', component: SurveypageComponent }
     ])
   ],
   providers: [],
