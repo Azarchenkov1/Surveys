@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Surveys.Library;
 using Surveys.Model;
 using Surveys.ReceiverContractLibrary;
 
@@ -44,27 +45,32 @@ namespace Surveys.DAL
 
         public static bool SaveSurvey(SurveyContract surveyContract)
         {
-            Survey survey = new Survey()
-            {
-                CreatorName = surveyContract.CreatorName,
-                CreationDay = Int32.Parse(surveyContract.CreationDay),
-                CreationMonth = Int32.Parse(surveyContract.CreationMonth),
-                CreationYear = Int32.Parse(surveyContract.CreationYear),
-                SurveyName = surveyContract.SurveyName
-            };
-            model.SurveyList.Add(survey);
-            model.SaveChanges();
+            try {
+                Survey survey = new Survey()
+                {
+                    CreatorName = surveyContract.CreatorName,
+                    CreationDay = Int32.Parse(surveyContract.CreationDay),
+                    CreationMonth = Int32.Parse(surveyContract.CreationMonth),
+                    CreationYear = Int32.Parse(surveyContract.CreationYear),
+                    SurveyName = surveyContract.SurveyName
+                };
+                model.SurveyList.Add(survey);
+                model.SaveChanges();
 
-            return true;
+                return true;
+
+            } catch (Exception ex) {
+                Logger.ExceptionOutput(ex);
+                return false;
+            }
         }
 
         public static bool SaveSurvey(int id, SurveyContract surveyContract)
         {
-            if (id <= model.SurveyList.Count())
-            {
+            try {
                 var survey = (from query_survey in model.SurveyList
-                             where query_survey.SurveyId == id
-                             select query_survey).FirstOrDefault();
+                              where query_survey.SurveyId == id
+                              select query_survey).FirstOrDefault();
 
                 survey.CreatorName = surveyContract.CreatorName;
                 survey.CreationDay = Int32.Parse(surveyContract.CreationDay);
@@ -75,15 +81,16 @@ namespace Surveys.DAL
                 model.SaveChanges();
 
                 return true;
-            } else {
+
+            } catch (Exception ex) {
+                Logger.ExceptionOutput(ex);
                 return false;
             }
         }
 
         public static Survey GetSurvey(int id)
         {
-            if (id <= model.SurveyList.Count())
-            {
+            try {
                 var Query = (from query_survey in model.SurveyList
                              where query_survey.SurveyId == id
                              select new
@@ -109,15 +116,16 @@ namespace Surveys.DAL
                 });
 
                 return survey;
-            } else {
+
+            } catch (Exception ex) {
+                Logger.ExceptionOutput(ex);
                 return null;
             }
         }
 
         public static bool Delete(int id)
         {
-            if (id <= model.SurveyList.Count())
-            {
+            try { 
                 var survey = (from query_survey in model.SurveyList
                               where query_survey.SurveyId == id
                               select query_survey).FirstOrDefault();
@@ -125,9 +133,8 @@ namespace Surveys.DAL
                 model.Remove(survey);
                 model.SaveChanges();
                 return true;
-            }
-            else
-            {
+            } catch (Exception ex) {
+                Logger.ExceptionOutput(ex);
                 return false;
             }
         }

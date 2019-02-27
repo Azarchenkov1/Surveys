@@ -29,8 +29,7 @@ namespace Surveys.Controllers
         {
             Logger.HttpRequestOutput("POST", "api/survey/survey");
             bool result = DataBaseService.SaveSurvey(survey);
-            if(result) { return Json("true"); }
-            else { return Json("false"); }
+            return Json(result);
         }
 
         [HttpGet("[action]/{id}")]
@@ -39,7 +38,7 @@ namespace Surveys.Controllers
             Logger.HttpRequestOutput("GET", "api/survey/survey");
             Survey survey = DataBaseService.GetSurvey(id);
             if (survey != null) { return Json(survey); }
-            else { return Json("false"); }
+            else { return Json("null"); }
         }
 
         [HttpPut("[action]/{id}")]
@@ -47,8 +46,7 @@ namespace Surveys.Controllers
         {
             Logger.HttpRequestOutput("PUT", "api/survey/survey");
             bool result = DataBaseService.SaveSurvey(id, survey);
-            if(result) { return Json("true"); }
-            else { return Json("false"); }
+            return Json(result);
         }
 
         [HttpDelete("survey/{id}")]
@@ -56,8 +54,7 @@ namespace Surveys.Controllers
         {
             Logger.HttpRequestOutput("DELETE", "api/survey/survey");
             bool result = DataBaseService.Delete(id);
-            if (result) { return Json("true"); }
-            else { return Json("false"); }
+            return Json(result);
         }
     }
 }

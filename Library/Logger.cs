@@ -12,5 +12,11 @@ namespace Surveys.Library
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Incoming http " + RequestType + " request received: " + API);
         }
+
+        public static void ExceptionOutput(Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(ex.Message);
+        }
     }
 }
