@@ -1,5 +1,5 @@
 interface SurveyContract {
-    SurveyId: number,
+    Id: number,
     creatorname: string,
     surveyname: string,
 

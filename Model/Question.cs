@@ -9,10 +9,10 @@ namespace Surveys.Model
     public class Question
     {
         [Key]
-        public int QuestionId { get; set; }
+        public int Id { get; set; }
         public string QuestionDescription { get; set; }
         public string AdditionalInformation { get; set; }
 
-        public ICollection<Answer> AnswerList { get; set; }
+        public int SurveyId { get; set; }
     }
 }

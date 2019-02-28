@@ -9,7 +9,9 @@ namespace Surveys.Model
     public class Answer
     {
         [Key]
-        public int AnswerId { get; set; }
+        public int Id { get; set; }
         public string AnswerDescription { get; set; }
+
+        public int QuestionId { get; set; }
     }
 }

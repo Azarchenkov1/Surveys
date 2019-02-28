@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-8 div-main">
+        <form class="form-horizontal" #questionForm="ngForm" (ngSubmit)="submitData(questionForm)">  
+        <h2 style="text-align: center">create question</h2>
+        <br/>
+        <div class="row" style="margin-top: 3px;">
+          <div class="col-md-6">
+            <label>question</label>
+          </div>
+          <div class="col-md-6">
+            <input type="email" id="question" name="question" ngModel class="form-control" required autofocus>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 3px;">
+          <div class="col-md-6">
+            <label>additional inforamtion</label>     
+          </div>
+          <div class="col-md-6">
+            <input type="email" id="information" name="information" ngModel class="form-control" required>            
+          </div>
+        </div>
+        <hr/>
+
+        <div class="row" style="margin-top: 3px;">
+            <div class="col-md-6">
+              <label>answer 1</label>     
+            </div>
+            <div class="col-md-6">
+              <input type="email" id="answer1" name="answer1" ngModel class="form-control" required>            
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 3px;">
+              <div class="col-md-6">
+                <label>answer 2</label>     
+              </div>
+              <div class="col-md-6">
+                <input type="email" id="answer2" name="answer2" ngModel class="form-control" required>            
+              </div>
+            </div>
+
+            <div class="row" style="margin-top: 3px;">
+                <div class="col-md-6">
+                  <label>answer 3</label>     
+                </div>
+                <div class="col-md-6">
+                  <input type="email" id="answer3" name="answer3" ngModel class="form-control" required>            
+                </div>
+              </div>
+          
+
+        <button class="btn btn-secondary btn-block" style="margin-top: 3px;" type="submit">create question</button>
+        </form>
+        <div style="height: 20px"></div>  
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>

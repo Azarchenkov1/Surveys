@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Surveys.Library;
 using Surveys.Model;
 using Surveys.ReceiverContractLibrary;
+using Surveys.SenderContractLibrary;
 
 namespace Surveys.DAL
 {
@@ -17,7 +18,7 @@ namespace Surveys.DAL
             var Query = (from query_survey in model.SurveyList
                          select new
                          {
-                             query_survey.SurveyId,
+                             query_survey.Id,
                              query_survey.SurveyName,
                              query_survey.CreatorName,
                              query_survey.CreationDay,
@@ -30,7 +31,7 @@ namespace Surveys.DAL
             Query.ForEach(i => {
                 Survey survey = new Survey();
 
-                survey.SurveyId = i.SurveyId;
+                survey.Id = i.Id;
                 survey.SurveyName = i.SurveyName;
                 survey.CreatorName = i.CreatorName;
                 survey.CreationDay = i.CreationDay;
@@ -69,7 +70,7 @@ namespace Surveys.DAL
         {
             try {
                 var survey = (from query_survey in model.SurveyList
-                              where query_survey.SurveyId == id
+                              where query_survey.Id == id
                               select query_survey).FirstOrDefault();
 
                 survey.CreatorName = surveyContract.CreatorName;
@@ -92,10 +93,10 @@ namespace Surveys.DAL
         {
             try {
                 var Query = (from query_survey in model.SurveyList
-                             where query_survey.SurveyId == id
+                             where query_survey.Id == id
                              select new
                              {
-                                 query_survey.SurveyId,
+                                 query_survey.Id,
                                  query_survey.SurveyName,
                                  query_survey.CreatorName,
                                  query_survey.CreationDay,
@@ -107,7 +108,7 @@ namespace Surveys.DAL
 
                 Query.ForEach(i => {
 
-                    survey.SurveyId = i.SurveyId;
+                    survey.Id = i.Id;
                     survey.SurveyName = i.SurveyName;
                     survey.CreatorName = i.CreatorName;
                     survey.CreationDay = i.CreationDay;
@@ -127,7 +128,7 @@ namespace Surveys.DAL
         {
             try { 
                 var survey = (from query_survey in model.SurveyList
-                              where query_survey.SurveyId == id
+                              where query_survey.Id == id
                               select query_survey).FirstOrDefault();
 
                 model.Remove(survey);
@@ -136,6 +137,106 @@ namespace Surveys.DAL
             } catch (Exception ex) {
                 Logger.ExceptionOutput(ex);
                 return false;
+            }
+        }
+
+        public static int SaveQuestion(QuestionContract questionContract)
+        {
+            try
+            {
+                Question question = new Question()
+                {
+                    SurveyId = Int32.Parse(questionContract.SurveyId),
+                    QuestionDescription = questionContract.QuestionDescription,
+                    AdditionalInformation = questionContract.AdditionalInformation,
+                };
+
+                model.QuestionList.Add(question);
+                model.SaveChanges();
+                return question.Id;
+            } catch (Exception ex) {
+                Logger.ExceptionOutput(ex);
+                return 0;
+            }
+        }
+
+        public static bool SaveAnswer(QuestionContract questionContract, int id)
+        {
+            try
+            {
+                SaveAnswer(questionContract.Answer1, id);
+                SaveAnswer(questionContract.Answer2, id);
+                SaveAnswer(questionContract.Answer3, id);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.ExceptionOutput(ex);
+                return false;
+            }
+        }
+
+        public static bool SaveAnswer(string str, int id)
+        {
+            try
+            {
+                Answer answer = new Answer()
+                {
+                    QuestionId = id,
+                    AnswerDescription = str
+                };
+
+                model.AnswerList.Add(answer);
+                model.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.ExceptionOutput(ex);
+                return false;
+            }
+        }
+
+        public static List<SenderQuestionContract> GetQuestionList(int id)
+        {
+            try
+            {
+                var Query = (from query_question in model.QuestionList
+                             where query_question.SurveyId == id
+                             select query_question).ToList();
+
+                List<SenderQuestionContract> QuestionList = new List<SenderQuestionContract>();
+
+                foreach (Question question in Query)
+                {
+                    var AnswerQuery = (from query_answer in model.AnswerList
+                                       where query_answer.QuestionId == question.Id
+                                       select query_answer).ToList();
+
+                    List<SenderAnswerContract> AnswerList = new List<SenderAnswerContract>();
+
+                    AnswerQuery.ForEach(i =>
+                    {
+                        SenderAnswerContract sac = new SenderAnswerContract();
+                        sac.Id = i.Id;
+                        sac.answerDescription = i.AnswerDescription;
+                        AnswerList.Add(sac);
+                    });
+
+                    SenderQuestionContract Question = new SenderQuestionContract()
+                    {
+                        Id = question.Id,
+                        questionDescription = question.QuestionDescription,
+                        additionalInformation = question.AdditionalInformation,
+                        answerList = AnswerList
+                    };
+
+                    QuestionList.Add(Question);
+                }
+                return QuestionList;
+            } catch (Exception ex) {
+                Logger.ExceptionOutput(ex);
+                return null;
             }
         }
     }
