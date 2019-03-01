@@ -31,5 +31,13 @@ namespace Surveys.Controllers
             List<SenderQuestionContract> QuestionList = DataBaseService.GetQuestionList(id);
             return Json(QuestionList);
         }
+
+        [HttpGet("[action]/{id}")]
+        public async Task<IActionResult> question(int id)
+        {
+            Logger.HttpRequestOutput("GET", "api/question/question");
+            SenderQuestionContract Question = DataBaseService.GetQuestion(id);
+            return Json(Question);
+        }
     }
 }

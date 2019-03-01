@@ -209,32 +209,68 @@ namespace Surveys.DAL
 
                 foreach (Question question in Query)
                 {
-                    var AnswerQuery = (from query_answer in model.AnswerList
-                                       where query_answer.QuestionId == question.Id
-                                       select query_answer).ToList();
-
-                    List<SenderAnswerContract> AnswerList = new List<SenderAnswerContract>();
-
-                    AnswerQuery.ForEach(i =>
-                    {
-                        SenderAnswerContract sac = new SenderAnswerContract();
-                        sac.Id = i.Id;
-                        sac.answerDescription = i.AnswerDescription;
-                        AnswerList.Add(sac);
-                    });
-
                     SenderQuestionContract Question = new SenderQuestionContract()
                     {
                         Id = question.Id,
                         questionDescription = question.QuestionDescription,
                         additionalInformation = question.AdditionalInformation,
-                        answerList = AnswerList
+                        answerList = GetAnswerList(question.Id)
                     };
 
                     QuestionList.Add(Question);
                 }
                 return QuestionList;
             } catch (Exception ex) {
+                Logger.ExceptionOutput(ex);
+                return null;
+            }
+        }
+
+        public static SenderQuestionContract GetQuestion(int id)
+        {
+            try
+            {
+                var Query = (from query_question in model.QuestionList
+                             where query_question.Id == id
+                             select query_question).Single();
+
+                SenderQuestionContract Question = new SenderQuestionContract()
+                {
+                    Id = Query.Id,
+                    questionDescription = Query.QuestionDescription,
+                    additionalInformation = Query.AdditionalInformation,
+                    answerList = GetAnswerList(Query.Id)
+                };
+
+                return Question;
+            } catch (Exception ex) {
+                Logger.ExceptionMethod("GetQuestion(int id)");
+                Logger.ExceptionOutput(ex);
+                return null;
+            }
+        }
+
+        static List<SenderAnswerContract> GetAnswerList(int id)
+        {
+            try
+            {
+                var AnswerQuery = (from query_answer in model.AnswerList
+                                   where query_answer.QuestionId == id
+                                   select query_answer).ToList();
+
+                List<SenderAnswerContract> AnswerList = new List<SenderAnswerContract>();
+
+                AnswerQuery.ForEach(i =>
+                {
+                    SenderAnswerContract sac = new SenderAnswerContract();
+                    sac.Id = i.Id;
+                    sac.answerDescription = i.AnswerDescription;
+                    AnswerList.Add(sac);
+                });
+
+                return AnswerList;
+            } catch (Exception ex) {
+                Logger.ExceptionMethod("GetAnswerList(int id)");
                 Logger.ExceptionOutput(ex);
                 return null;
             }

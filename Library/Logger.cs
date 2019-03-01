@@ -18,5 +18,17 @@ namespace Surveys.Library
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(ex.Message);
         }
+
+        public static void ExceptionMethod(string MethodName)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Exception occured in: " + MethodName);
+        }
+
+        public static void MessageOutput(string Message)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(Message);
+        }
     }
 }
