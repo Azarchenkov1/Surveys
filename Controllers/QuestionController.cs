@@ -39,5 +39,13 @@ namespace Surveys.Controllers
             SenderQuestionContract Question = DataBaseService.GetQuestion(id);
             return Json(Question);
         }
+
+        [HttpDelete("question/{id}")]
+        public async Task<IActionResult> deletequestion(int id)
+        {
+            Logger.HttpRequestOutput("DELETE", "api/question/question");
+            bool result = DataBaseService.DeleteQuestion(id);
+            return Json(result);
+        }
     }
 }

@@ -131,6 +131,7 @@ namespace Surveys.DAL
                               where query_survey.Id == id
                               select query_survey).FirstOrDefault();
 
+                DeleteQuestionList(survey.Id);
                 model.Remove(survey);
                 model.SaveChanges();
                 return true;
@@ -273,6 +274,67 @@ namespace Surveys.DAL
                 Logger.ExceptionMethod("GetAnswerList(int id)");
                 Logger.ExceptionOutput(ex);
                 return null;
+            }
+        }
+
+        static bool DeleteQuestionList(int id)
+        {
+            try
+            {
+                var QuestionList = (from query_question in model.QuestionList
+                                    where query_question.SurveyId == id
+                                    select query_question).ToList();
+
+                foreach(Question question in QuestionList)
+                {
+                    DeleteAnswerList(question.Id);
+                    model.Remove(question);
+                }
+                model.SaveChanges();
+                return true;
+            }
+            catch (Exception ex) {
+                Logger.ExceptionOutput(ex);
+                return false;
+            }
+        }
+
+        public static bool DeleteQuestion(int id)
+        {
+            try
+            {
+                var question = (from query_question in model.QuestionList
+                                where query_question.Id == id
+                                select query_question).Single();
+
+                DeleteAnswerList(question.Id);
+                model.Remove(question);
+                model.SaveChanges();
+                return true;
+            } catch (Exception ex) {
+                Logger.ExceptionOutput(ex);
+                return false;
+            }
+        }
+
+        static bool DeleteAnswerList(int id)
+        {
+            try
+            {
+                var AnswerList = (from query_answer in model.AnswerList
+                              where query_answer.QuestionId == id
+                              select query_answer).ToList();
+
+
+                foreach(Answer answer in AnswerList)
+                {
+                    model.Remove(answer);
+                }
+                model.SaveChanges();
+                return true;
+            } catch (Exception ex) {
+                Logger.ExceptionOutput(ex);
+                return false;
             }
         }
     }
