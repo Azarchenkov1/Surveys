@@ -47,5 +47,29 @@ namespace Surveys.Controllers
             bool result = DataBaseService.DeleteQuestion(id);
             return Json(result);
         }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> questions()
+        {
+            Logger.HttpRequestOutput("GET", "api/question/questions");
+            List<SenderQuestionContract> QuestionList = DataBaseService.GetQuestionList();
+            return Json(QuestionList);
+        }
+
+        [HttpDelete("surveyquestions/{id}")]
+        public async Task<IActionResult> deletequestionlist(int id)
+        {
+            Logger.HttpRequestOutput("DELETE", "api/question/surveyquestions");
+            bool result = DataBaseService.DeleteQuestionList(id);
+            return Json(result);
+        }
+
+        [HttpPost("[action]/{questionid}/{surveyid}")]
+        public async Task<IActionResult> survey(int questionid, int surveyid)
+        {
+            Logger.HttpRequestOutput("POST", "api/question/survey");
+            bool result = DataBaseService.Subscribe(questionid, surveyid);
+            return Json(result);
+        }
     }
 }

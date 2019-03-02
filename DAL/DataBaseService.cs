@@ -277,7 +277,7 @@ namespace Surveys.DAL
             }
         }
 
-        static bool DeleteQuestionList(int id)
+        public static bool DeleteQuestionList(int id)
         {
             try
             {
@@ -330,6 +330,51 @@ namespace Surveys.DAL
                 {
                     model.Remove(answer);
                 }
+                model.SaveChanges();
+                return true;
+            } catch (Exception ex) {
+                Logger.ExceptionOutput(ex);
+                return false;
+            }
+        }
+
+        public static List<SenderQuestionContract> GetQuestionList()
+        {
+            try
+            {
+                var query = (from query_question in model.QuestionList
+                             select query_question).ToList();
+
+                List<SenderQuestionContract> QuestionList = new List<SenderQuestionContract>();
+
+                foreach (Question question in query)
+                {
+                    SenderQuestionContract Question = new SenderQuestionContract()
+                    {
+                        Id = question.Id,
+                        questionDescription = question.QuestionDescription,
+                        additionalInformation = question.AdditionalInformation,
+                        answerList = GetAnswerList(question.Id)
+                    };
+                    QuestionList.Add(Question);
+                }
+                return QuestionList;
+            } catch (Exception ex) {
+                Logger.ExceptionOutput(ex);
+                return null;
+            }
+        }
+
+        public static bool Subscribe(int QuestionId, int SurveyId)
+        {
+            try
+            {
+                var query = (from query_question in model.QuestionList
+                             where query_question.Id == QuestionId
+                             select query_question).Single();
+
+                Question question = query;
+                question.SurveyId = SurveyId;
                 model.SaveChanges();
                 return true;
             } catch (Exception ex) {
