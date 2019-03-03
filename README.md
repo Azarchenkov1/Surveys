@@ -31,6 +31,8 @@ So client may does not work because of that. Be aware of this!
 When you run project first time you must set IsInitialize and IsRecreate property as true. in Model/Model.cs 11 and 12line.
 Then wait before app load in browser, and off it. Now set this properties as false and run it again. Also be aware that you must edit connection string on 32line due to your mssqlserver.
 
+Also be aware that if in browser drop timeout exception - just wait before in console message("webpack: Compiled successfully") will be displayed. Then just reload page.
+
 If you add new survey, please reload main page to see it in list.
 
 If you have questions, call me 0937041428.
