@@ -382,5 +382,23 @@ namespace Surveys.DAL
                 return false;
             }
         }
+
+        public static bool EditQuestion(int id, QuestionContract question)
+        {
+            try
+            {
+                var Question = (from query_question in model.QuestionList
+                                where query_question.Id == id
+                                select query_question).Single();
+
+                Question.QuestionDescription = question.QuestionDescription;
+                Question.AdditionalInformation = question.AdditionalInformation;
+                model.SaveChanges();
+                return true;
+            } catch (Exception ex) {
+                Logger.ExceptionOutput(ex);
+                return false;
+            }
+        }
     }
 }

@@ -27,7 +27,7 @@ export class HomeComponent {
     localStorage.setItem("id", id);
 
     this.surveylist.forEach(function (survey) { 
-      if(survey.Id == id) 
+      if(survey.id == id) 
       { 
         localStorage.setItem("SurveyName", survey.surveyName);
         localStorage.setItem("CreatorName", survey.creatorName);

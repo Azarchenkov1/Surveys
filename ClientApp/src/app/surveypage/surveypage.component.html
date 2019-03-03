@@ -11,12 +11,12 @@
 
 <div *ngFor="let i of questionlist" class="div-placement row">
   <div class="col-md-6">
-      <p>{{ i.questionDescription }}</p>
+    <p>{{ i.questionDescription }}</p>  
       <p>{{ i.additionalInformation }}</p>
   </div>
   <div class="col-md-6">
       <div *ngFor="let answer of i.answerList" 
-      style="height: 30px; background-color: red; margin-top: 10px">
+      style="height: 30px; background-color: lightgrey; margin-top: 10px">
         <p>{{ answer.answerDescription }}</p>
         <br/>
       </div>

@@ -71,5 +71,13 @@ namespace Surveys.Controllers
             bool result = DataBaseService.Subscribe(questionid, surveyid);
             return Json(result);
         }
+
+        [HttpPut("[action]/{id}")]
+        public async Task<IActionResult> question(int id,[FromBody] QuestionContract question)
+        {
+            Logger.HttpRequestOutput("PUT", "api/question/question");
+            bool result = DataBaseService.EditQuestion(id, question);
+            return Json(result);
+        }
     }
 }
