@@ -63,18 +63,18 @@ namespace Surveys.Model
         public Survey survey1 = new Survey() { SurveyName = "Survey for owls", CreatorName = "Nikita", CreationDay = 25, CreationMonth = 2, CreationYear = 2019 };
         public Survey survey2 = new Survey() { SurveyName = "Survey for larks", CreatorName = "Nikita", CreationDay = 25, CreationMonth = 2, CreationYear = 2019 };
 
-        public Question question1 = new Question() { QuestionDescription = "How early do you get up?", AdditionalInformation = "In what time?" };
-        public Question question2 = new Question() { QuestionDescription = "What do you eat on breakfast?", AdditionalInformation = "For example?" };
-        public Question question3 = new Question() { QuestionDescription = "How late do you go to sleep?", AdditionalInformation = "In what time?" };
-        public Question question4 = new Question() { QuestionDescription = "What do you eat on dinner?", AdditionalInformation = "For example?" };
+        public Question question1 = new Question() { QuestionDescription = "How early do you get up?", AdditionalInformation = "In what time?", SurveyId = 1 };
+        public Question question2 = new Question() { QuestionDescription = "What do you eat on breakfast?", AdditionalInformation = "For example?", SurveyId = 1 };
+        public Question question3 = new Question() { QuestionDescription = "How late do you go to sleep?", AdditionalInformation = "In what time?", SurveyId = 2 };
+        public Question question4 = new Question() { QuestionDescription = "What do you eat on dinner?", AdditionalInformation = "For example?" , SurveyId = 2 };
 
-        public Answer answer1 = new Answer() { AnswerDescription = "before 6 a.m." };
-        public Answer answer2 = new Answer() { AnswerDescription = "after 6 a.m." };
-        public Answer answer3 = new Answer() { AnswerDescription = "omlet" };
-        public Answer answer4 = new Answer() { AnswerDescription = "porridge" };
-        public Answer answer5 = new Answer() { AnswerDescription = "before midnight" };
-        public Answer answer6 = new Answer() { AnswerDescription = "after midnight" };
-        public Answer answer7 = new Answer() { AnswerDescription = "steak with beer" };
-        public Answer answer8 = new Answer() { AnswerDescription = "i'm trying to drop my weight" };
+        public Answer answer1 = new Answer() { AnswerDescription = "before 6 a.m.", QuestionId = 1 };
+        public Answer answer2 = new Answer() { AnswerDescription = "after 6 a.m.", QuestionId = 1 };
+        public Answer answer3 = new Answer() { AnswerDescription = "omlet", QuestionId = 2 };
+        public Answer answer4 = new Answer() { AnswerDescription = "porridge", QuestionId = 2 };
+        public Answer answer5 = new Answer() { AnswerDescription = "before midnight", QuestionId = 3 };
+        public Answer answer6 = new Answer() { AnswerDescription = "after midnight", QuestionId = 3 };
+        public Answer answer7 = new Answer() { AnswerDescription = "steak with beer", QuestionId = 4 };
+        public Answer answer8 = new Answer() { AnswerDescription = "i'm trying to drop my weight", QuestionId = 4 };
     }
 }
